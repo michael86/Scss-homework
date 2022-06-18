@@ -1,27 +1,31 @@
+/*Could probably add more mixins for stuff like padding, margin and so on.
+However, didn't make sense to as it's going to add more lines of code to make the mixing
+when compared to the alternative of just writing them for that specific elements rule.*/
+
 $red: hsl(0, 78%, 62%);
 $cyan: hsl(180, 62%, 55%);
 $orange: hsl(34, 97%, 64%);
 $blue: hsl(212, 86%, 64%);
-$defaultFontWeight: 400;
-
-body {
-  font-family: "Poppins", sans-serif;
-  font-size: 1.5rem;
-  text-align: center;
-  padding: 85px 32px;
-  background-color: #f2f2f2;
-}
 
 @mixin marginBlockEnd($size) {
   margin-block-end: #{$size};
 }
 
 // Font weight may need removing
-@mixin fontStyle($weight, $size, $height, $spacing) {
-  font-weight: #{$weight};
-  font-size: #{$size};
+@mixin lineStyle($height, $spacing) {
   line-height: #{$height};
   letter-spacing: #{$spacing};
+}
+
+@mixin fontStyle($size, $weight: 400) {
+  font-weight: #{$weight};
+  font-size: #{$size};
+}
+
+@mixin flexStyle($justify, $align, $direction: column) {
+  flex-direction: #{$direction};
+  justify-content: #{$justify};
+  align-items: #{$align};
 }
 
 %color {
@@ -32,49 +36,68 @@ body {
   display: flex;
 }
 
+body {
+  font-family: "Poppins", sans-serif;
+  @include fontStyle(1.5rem);
+  text-align: center;
+  padding: 85px 32px;
+  background-color: #f2f2f2;
+}
+
 .page-header {
   @include marginBlockEnd(76px);
 
   h1 {
     @include marginBlockEnd(0px);
-    @include fontStyle(200, 2.4rem, 1.5, 0.17px);
+    @include fontStyle(2.4rem, 200);
+    @include lineStyle(1.5, 0.17px);
     @extend %color;
   }
 
   h2 {
     @include marginBlockEnd(1.6rem);
-    @include fontStyle(600, 2.4rem, 1.5, 0.17px);
+    @include fontStyle(2.4rem, 0.17px);
+    @include lineStyle(1.5, 600);
     @extend %color;
   }
 
   p {
-    @include fontStyle($defaultFontWeight, 1.5rem, 1.67, 0.1px);
+    @include fontStyle(1.5rem);
+    @include lineStyle(1.67, 0.1px);
     @extend %color;
     opacity: 99;
   }
 
   @media screen and (min-width: 960px) {
     h1 {
-      font-size: 3.6rem;
-      /* line-height: 1.5; */
+      @include fontStyle(3.6rem, 200);
       letter-spacing: 0.25px;
+      @include marginBlockEnd(2px);
       color: #4d4f62;
-      margin-block-end: 2px;
+      /*Had to put color as can't extend from within media queries.
+       Also had to set font weight to 200 in fontStyle even though 
+       it's already set by mobile view as mixin has a default of 400
+       if no value passed. This caused the header to default to 400 
+       if not passed*/
     }
 
     h2 {
+      @include marginBlockEnd(1.3rem);
+      @extend %color;
+      @include fontStyle(3.6rem, 600);
+      letter-spacing: 0.25px;
     }
 
     p {
+      line-height: 1.66;
+      max-inline-size: 540px;
+      margin: auto;
     }
-
-    // $weight, $size, $height, $spacing
   }
 }
 
 .card {
   @include marginBlockEnd(25px);
-
   text-align: inline-start;
   padding: 28px;
   border-block-start: 4px solid transparent;
@@ -84,16 +107,19 @@ body {
 
   h3 {
     @include marginBlockEnd(0);
-    @include fontStyle(600, 2rem, 1.5, normal);
+    @include fontStyle(2rem);
+    @include lineStyle(1.5, normal);
     @extend %color;
   }
 
   p {
     @include marginBlockEnd(33px);
-    @include fontStyle($defaultFontWeight, 1.3rem, 1.77, 0.09px);
+    @include fontStyle(1.3rem);
+    @include lineStyle(1.66, 0.09px);
     @extend %color;
+    max-inline-size: 540px;
+    margin: auto;
   }
-  //   $weight, $size, $height, $spacing
 
   .icon-holder {
     @extend %flex;
@@ -121,4 +147,19 @@ body {
 
 .card.calculator {
   border-block-start-color: $blue;
+}
+
+@media (min-width: 960px) {
+  .feature-wrapper {
+    display: flex;
+    max-inline-size: 1110px;
+    margin: auto;
+  }
+
+  .feature-col {
+    display: flex;
+    @include flexStyle(center, flex-start, column);
+    width: calc(33.33% - calc(60px / 3));
+    margin-inline-end: 30px;
+  }
 }
