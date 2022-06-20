@@ -1,11 +1,13 @@
 /*Could probably add more mixins for stuff like padding, margin and so on.
 However, didn't make sense to as it's going to add more lines of code to make the mixing
 when compared to the alternative of just writing them for that specific elements rule.*/
-.card p, .card h3, .page-header p, .page-header h2, .page-header h1 {
+.page-header h1, .page-header h2, .page-header p, .card h3, .card p {
   color: #4d4f62;
 }
 
 .card .icon-holder {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -22,6 +24,7 @@ body {
   -webkit-margin-after: 76px;
           margin-block-end: 76px;
 }
+
 .page-header h1 {
   -webkit-margin-after: 0px;
           margin-block-end: 0px;
@@ -30,6 +33,7 @@ body {
   line-height: 1.5;
   letter-spacing: 0.17px;
 }
+
 .page-header h2 {
   -webkit-margin-after: 1.6rem;
           margin-block-end: 1.6rem;
@@ -38,6 +42,7 @@ body {
   line-height: 1.5;
   letter-spacing: 600;
 }
+
 .page-header p {
   font-weight: 400;
   font-size: 1.5rem;
@@ -45,6 +50,7 @@ body {
   letter-spacing: 0.1px;
   opacity: 99;
 }
+
 @media screen and (min-width: 960px) {
   .page-header h1 {
     font-weight: 200;
@@ -54,10 +60,10 @@ body {
             margin-block-end: 2px;
     color: #4d4f62;
     /*Had to put color as can't extend from within media queries.
-     Also had to set font weight to 200 in fontStyle even though 
-     it's already set by mobile view as mixin has a default of 400
-     if no value passed. This caused the header to default to 400 
-     if not passed*/
+       Also had to set font weight to 200 in fontStyle even though 
+       it's already set by mobile view as mixin has a default of 400
+       if no value passed. This caused the header to default to 400 
+       if not passed*/
   }
   .page-header h2 {
     -webkit-margin-after: 1.3rem;
@@ -65,6 +71,7 @@ body {
     font-weight: 600;
     font-size: 3.6rem;
     letter-spacing: 0.25px;
+    color: #4d4f62;
   }
   .page-header p {
     line-height: 1.66;
@@ -82,8 +89,10 @@ body {
           border-block-start: 4px solid transparent;
   border-radius: 8px;
   background: #ffffff;
-  box-shadow: 0px 15px 30px -11px rgba(63, 70, 78, 0.5);
+  -webkit-box-shadow: 0px 15px 30px -11px rgba(63, 70, 78, 0.5);
+          box-shadow: 0px 15px 30px -11px rgba(63, 70, 78, 0.5);
 }
+
 .card h3 {
   -webkit-margin-after: 0;
           margin-block-end: 0;
@@ -92,6 +101,7 @@ body {
   line-height: 1.5;
   letter-spacing: normal;
 }
+
 .card p {
   -webkit-margin-after: 33px;
           margin-block-end: 33px;
@@ -102,9 +112,13 @@ body {
   max-inline-size: 540px;
   margin: auto;
 }
+
 .card .icon-holder {
-  justify-content: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
+
 .card .icon {
   block-size: 57px;
   inline-size: 57px;
@@ -113,35 +127,46 @@ body {
 }
 
 .card.supervisor {
-  border-block-start-color: hsl(180deg, 62%, 55%);
+  border-block-start-color: #45d3d3;
 }
 
 .card.team-builder {
-  border-block-start-color: hsl(0deg, 78%, 62%);
+  border-block-start-color: #ea5353;
 }
 
 .card.karma {
-  border-block-start-color: hsl(34deg, 97%, 64%);
+  border-block-start-color: #fcaf4a;
 }
 
 .card.calculator {
-  border-block-start-color: hsl(212deg, 86%, 64%);
+  border-block-start-color: #549ef2;
 }
 
 @media (min-width: 960px) {
   .feature-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     max-inline-size: 1110px;
     margin: auto;
   }
-
   .feature-col {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    width: calc(33.33% - 20px);
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    width: calc(33.33% - calc(60px / 3));
     -webkit-margin-end: 30px;
             margin-inline-end: 30px;
   }
-}/*# sourceMappingURL=style.css.map */
+}
+/*# sourceMappingURL=style.css.map */
